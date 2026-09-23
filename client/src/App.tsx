@@ -829,7 +829,7 @@ useEffect(() => {
            ...media,
           url: media.url.startsWith("http")
           ? media.url
-          : `http://localhost:4000${media.url}`,
+          : `${import.meta.env.VITE_SERVER_URL}${media.url}`,
          }))
         );
       setPage("room");
@@ -1128,7 +1128,7 @@ socket.on("reaction:receive", onReaction);
     ...media,
     url: media.url.startsWith("http")
       ? media.url
-      : `http://localhost:4000${media.url}`,
+      : `${import.meta.env.VITE_SERVER_URL}${media.url}`,
   }))
 );
   }
@@ -1466,7 +1466,7 @@ formData.append("mediaType", selectedMediaType);
 
   try {
     const response = await fetch(
-      "http://localhost:4000/upload",
+      `${import.meta.env.VITE_SERVER_URL}/upload`,
       {
         method: "POST",
         body: formData,
@@ -1480,7 +1480,7 @@ formData.append("mediaType", selectedMediaType);
     const data = await response.json();
 
     const mediaUrl =
-      `http://localhost:4000${data.url}`;
+      `${import.meta.env.VITE_SERVER_URL}${data.url}`;
       
     socket.emit("media:change", {
       roomId: room?.id,
