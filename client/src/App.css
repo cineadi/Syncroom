@@ -1,0 +1,2523 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #0b0d12;
+  color: #e5e7eb;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0b0d12;
+  padding: 24px;
+}
+
+.hero {
+  width: 100%;
+  max-width: 620px;
+  text-align: center;
+}
+
+.logo {
+  width: 52px;
+  height: 52px;
+  margin: 0 auto 18px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: #252b3a;
+  border: 1px solid #343b4d;
+  color: #8b9cff;
+  font-weight: 700;
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: 48px;
+  color: white;
+}
+
+.hero p {
+  margin: 12px 0 30px;
+  color: #9ca3af;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.primary,
+.secondary {
+  border: 0;
+  border-radius: 8px;
+  padding: 11px 18px;
+  transition: 0.15s;
+}
+
+.primary {
+  background: #4f46e5;
+  color: white;
+}
+
+.primary:hover {
+  background: #4338ca;
+}
+
+.secondary {
+  background: #171b25;
+  color: #e5e7eb;
+  border: 1px solid #2b3240;
+}
+
+.secondary:hover {
+  background: #202635;
+}
+
+.small {
+  padding: 8px 13px;
+}
+
+.connection {
+  margin-top: 28px;
+  color: #9ca3af;
+  font-size: 13px;
+}
+
+.dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 7px;
+  border-radius: 50%;
+  background: #ef4444;
+}
+
+.dot.online {
+  background: #22c55e;
+}
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 10;
+}
+
+.modal {
+  width: 100%;
+  max-width: 420px;
+  padding: 24px;
+  border-radius: 12px;
+  background: #11151e;
+  border: 1px solid #29303e;
+}
+
+.modal h2 {
+  margin-top: 0;
+  color: white;
+}
+
+.modal label {
+  display: block;
+  margin: 16px 0 7px;
+  font-size: 13px;
+  color: #cbd5e1;
+}
+
+.modal label span {
+  margin-left: 6px;
+  color: #64748b;
+}
+
+.modal input,
+.mediaControls input,
+.chatInput input {
+  width: 100%;
+  border: 1px solid #303746;
+  border-radius: 7px;
+  background: #0c1017;
+  color: white;
+  padding: 11px;
+  outline: none;
+}
+
+.modal input:focus,
+.mediaControls input:focus,
+.chatInput input:focus {
+  border-color: #6366f1;
+}
+
+.error {
+  color: #f87171;
+  font-size: 13px;
+}
+
+.modalActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.roomPage {
+  min-height: 100vh;
+  background: #0b0d12;
+}
+
+.topbar {
+  height: 64px;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #202632;
+  background: #10141c;
+}
+
+.topbar strong {
+  color: white;
+}
+
+.roomCode {
+  margin-left: 12px;
+  padding: 5px 8px;
+  border-radius: 5px;
+  background: #1c2230;
+  color: #a5b4fc;
+  font-family: monospace;
+  font-size: 12px;
+}
+
+.topRight {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 10px;
+  border: 1px solid #252c39;
+  border-radius: 999px;
+  background: #11151e;
+  color: #d1d5db;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.roomLayout {
+  width: 100%;
+  max-width: 1250px;
+  margin: 0 auto;
+  padding: 24px;
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
+  gap: 20px;
+}
+
+
+.mediaControls {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.mediaControls input {
+  flex: 1;
+}
+
+.infoCard,
+.card {
+  background: #11151e;
+  border: 1px solid #252c39;
+  border-radius: 10px;
+}
+
+.infoCard {
+  margin-top: 12px;
+  padding: 14px;
+}
+
+.infoCard strong {
+  color: white;
+  font-size: 14px;
+}
+
+.infoCard p {
+  margin: 6px 0 0;
+  color: #8b95a7;
+  font-size: 12px;
+}
+.hostInfo {
+  border-color: rgba(99, 102, 241, 0.45);
+  background: linear-gradient(
+    135deg,
+    #11151e,
+    rgba(79, 70, 229, 0.08)
+  );
+}
+
+.guestInfo {
+  border-color: #252c39;
+}
+
+.hostInfo strong {
+  color: #a5b4fc;
+}
+
+.guestInfo strong {
+  color: #e5e7eb;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 0;
+}
+
+.card {
+  overflow: hidden;
+}
+
+.cardHeader {
+  padding: 13px 14px;
+  border-bottom: 1px solid #252c39;
+  color: #e5e7eb;
+}
+
+.users {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.user {
+  padding: 9px 7px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #d1d5db;
+  font-size: 13px;
+  border-radius: 9px;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.user:hover {
+  background: rgba(255, 255, 255, 0.04);
+  transform: translateX(2px);
+}
+
+.user small {
+  margin-left: auto;
+  color: #a5b4fc;
+  font-size: 9px;
+}
+
+.chatCard {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 360px;
+}
+
+.messages {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 14px;
+  scroll-behavior: smooth;
+}
+
+.message {
+  width: fit-content;
+  max-width: 82%;
+  margin-bottom: 10px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.message strong {
+  font-size: 10px;
+  font-weight: 700;
+  color: #a5b4fc;
+}
+
+.message span {
+  color: #e5e7eb;
+  font-size: 13px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.message small {
+  color: #64748b;
+  font-size: 9px;
+  align-self: flex-end;
+}
+
+/* Your messages */
+.myMessage {
+  margin-left: auto;
+  background: rgba(79, 70, 229, 0.18);
+  border: 1px solid rgba(99, 102, 241, 0.22);
+  border-bottom-right-radius: 4px;
+}
+
+.myMessage strong {
+  color: #c4b5fd;
+}
+
+/* Other people's messages */
+.otherMessage {
+  margin-right: auto;
+  background: #171c27;
+  border: 1px solid #252c39;
+  border-bottom-left-radius: 4px;
+}
+
+/* System messages */
+.systemMessage {
+  width: 100%;
+  max-width: 100%;
+  margin: 4px 0 10px;
+  padding: 5px 0;
+  align-items: center;
+  background: transparent;
+  border: 0;
+}
+
+.systemMessage span {
+  color: #64748b;
+  font-size: 10px;
+  font-style: italic;
+  text-align: center;
+}
+
+.systemMessage small {
+  display: none;
+}
+
+.empty {
+  color: #64748b;
+  text-align: center;
+  font-size: 12px;
+}
+
+.chatInput {
+  display: flex;
+  gap: 7px;
+  padding: 10px;
+  border-top: 1px solid #252c39;
+}
+
+.chatInput input {
+  min-width: 0;
+}
+
+.chatInput .primary {
+  flex-shrink: 0;
+}
+
+@media (max-width: 800px) {
+  .hero h1 {
+    font-size: 38px;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  .roomLayout {
+    grid-template-columns: 1fr;
+    padding: 12px;
+  }
+
+  .topbar {
+    padding: 0 12px;
+  }
+
+  .mediaControls {
+    flex-direction: column;
+  }
+
+  .chatCard {
+    min-height: 320px;
+  }
+}
+/* ================================
+   PARTY REACTION BAR
+   ================================ */
+
+.reactionBar {
+  position: relative;
+  z-index: 20;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: 8px;
+
+  width: fit-content;
+  max-width: calc(100% - 20px);
+
+  margin: 14px auto 16px;
+  padding: 7px 9px;
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+
+  background: rgba(15, 18, 27, 0.88);
+
+  box-shadow:
+    0 8px 30px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+
+  backdrop-filter: blur(14px);
+
+  pointer-events: auto;
+}
+
+.reactionBar button {
+  position: relative;
+  z-index: 21;
+
+  width: 44px;
+  height: 44px;
+
+  display: grid;
+  place-items: center;
+
+  padding: 0;
+
+  border: 1px solid transparent;
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.045);
+  color: white;
+
+  font-size: 21px;
+  line-height: 1;
+
+  cursor: pointer;
+  pointer-events: auto;
+
+  transition:
+    transform 0.18s cubic-bezier(.2, .8, .2, 1),
+    background 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    filter 0.18s ease;
+}
+
+.reactionBar button:hover {
+  transform: translateY(-5px) scale(1.18);
+
+  background: rgba(255, 255, 255, 0.12);
+
+  border-color: rgba(255, 255, 255, 0.16);
+
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.3),
+    0 0 18px rgba(255, 255, 255, 0.08);
+
+  filter: brightness(1.15);
+}
+
+.reactionBar button:active {
+  transform: translateY(-1px) scale(0.82);
+
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* little party glow behind the bar */
+
+.reactionBar::before {
+  content: "";
+
+  position: absolute;
+  inset: -1px;
+
+  border-radius: inherit;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(244, 63, 94, 0.12),
+      rgba(168, 85, 247, 0.12),
+      rgba(59, 130, 246, 0.12),
+      rgba(34, 197, 94, 0.12)
+    );
+
+  filter: blur(14px);
+
+  opacity: 0.7;
+
+  z-index: -1;
+  pointer-events: none;
+}
+
+
+/* ================================
+   FLOATING REACTIONS
+   ================================ */
+
+/* ================================
+   FLOATING REACTIONS
+   ================================ */
+
+.reactionOverlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 100;
+  overflow: hidden;
+  border-radius: 14px;
+}
+
+.videoSection {
+  position: relative;
+}
+
+.floatingReaction {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  pointer-events: none;
+  transform-origin: center;
+  will-change: transform, opacity;
+  animation: reactionBomb 1.8s ease-out forwards;
+}
+
+.floatingReaction span {
+  font-size: 24px;
+  line-height: 1;
+}
+
+.floatingReaction small {
+  display: none;
+}
+
+
+/* Reaction lanes */
+
+.floatingReaction.reactionLane-0 {
+  margin-left: 0;
+}
+
+.floatingReaction.reactionLane-1 {
+  margin-left: -110px;
+}
+
+.floatingReaction.reactionLane-2 {
+  margin-left: 110px;
+}
+
+.floatingReaction.reactionLane-3 {
+  margin-left: -210px;
+}
+
+.floatingReaction.reactionLane-4 {
+  margin-left: 210px;
+}
+
+
+/* Floating animation */
+
+@keyframes reactionBomb {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.2) rotate(0deg);
+  }
+
+  8% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.4) rotate(-8deg);
+  }
+
+  20% {
+    opacity: 1;
+    transform: translate(
+      calc(-50% + var(--reaction-x)),
+      calc(-50% + var(--reaction-y))
+    ) scale(var(--reaction-scale)) rotate(var(--reaction-rotate));
+  }
+
+  65% {
+    opacity: 1;
+    transform: translate(
+      calc(-50% + var(--reaction-x)),
+      calc(-50% + var(--reaction-y))
+    ) scale(1) rotate(var(--reaction-rotate));
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(
+      calc(-50% + var(--reaction-x)),
+      calc(-50% + var(--reaction-y))
+    ) scale(0.7) rotate(var(--reaction-rotate));
+  }
+}/* Slightly different timing for each reaction lane */
+
+.reactionLane-0 {
+  animation-duration: 1.8s;
+}
+
+.reactionLane-1 {
+  animation-duration: 2s;
+}
+
+.reactionLane-2 {
+  animation-duration: 1.9s;
+}
+
+.reactionLane-3 {
+  animation-duration: 2.1s;
+}
+
+.reactionLane-4 {
+  animation-duration: 1.9s;
+}
+
+
+/* ================================
+   MOBILE REACTIONS
+   ================================ */
+
+@media (max-width: 600px) {
+  .reactionBar {
+    gap: 5px;
+    margin-top: 10px;
+  }
+
+  .reactionBar button {
+    width: 40px;
+    height: 38px;
+    font-size: 17px;
+  }
+
+  .floatingReaction {
+    padding: 6px 9px;
+  }
+
+  .floatingReaction span {
+    font-size: 21px;
+  }
+
+  .floatingReaction small {
+    font-size: 10px;
+  }
+}
+/* ================================
+   YOUTUBE PLAYER
+   ================================ */
+
+.videoBox {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: 14px;
+  position: relative;
+  background: black;
+}
+
+.videoBox video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: black;
+  object-fit: contain;
+}
+
+.youtubePlayer {
+  position: absolute;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.youtubeIframe {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  border: 0;
+}
+.hostBadge {
+  margin-left: auto;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: rgba(99, 102, 241, 0.14);
+  border: 1px solid rgba(129, 140, 248, 0.28);
+  color: #a5b4fc !important;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  line-height: 1;
+  white-space: nowrap;
+}
+.roomShare {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.copyInviteButton {
+  padding: 7px 10px;
+  border: 1px solid #2d3545;
+  border-radius: 8px;
+  background: #171c27;
+  color: #e5e7eb;
+  font-size: 12px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.copyInviteButton:hover {
+  background: #222938;
+  border-color: #4f46e5;
+}
+/* =========================================================
+   SYNCROOM LAYOUT POLISH
+   Overrides the older layout rules above without changing
+   any React functionality.
+   ========================================================= */
+
+html, body, #root {
+  min-height: 100%;
+}
+
+.roomPage {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 30% 0%, rgba(79, 70, 229, 0.07), transparent 28%),
+    #0b0d12;
+}
+
+.topbar {
+  min-height: 72px;
+  height: auto;
+  padding: 12px 28px;
+  gap: 20px;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  background: rgba(16, 20, 28, 0.96);
+  backdrop-filter: blur(12px);
+}
+
+.topbar > div:first-child {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.topbar strong {
+  font-size: 18px;
+  white-space: nowrap;
+}
+
+.roomShare {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.roomCode {
+  margin: 0;
+  padding: 7px 10px;
+  border: 1px solid #343d50;
+  border-radius: 8px;
+  background: #1c2230;
+  color: #a5b4fc;
+}
+
+.copyInviteButton {
+  padding: 7px 11px;
+  border: 1px solid #343d50;
+  border-radius: 8px;
+  background: #171c27;
+  color: #e5e7eb;
+  font-size: 12px;
+  transition: 0.18s ease;
+}
+
+.copyInviteButton:hover {
+  background: #222938;
+  border-color: #6366f1;
+  transform: translateY(-1px);
+}
+
+.topRight {
+  flex-shrink: 0;
+}
+
+.roomLayout {
+  width: 100%;
+  max-width: 1450px;
+  margin: 0 auto;
+  padding: 24px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 22px;
+  align-items: start;
+}
+
+.videoSection {
+  min-width: 0;
+}
+
+.videoBox {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: 16px;
+  border: 1px solid #242b38;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
+}
+
+.videoBox video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.videoBox audio {
+  width: 92%;
+  height: 54px;
+  position: absolute;
+  left: 4%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.reactionBar {
+  margin: 12px 0 16px;
+  flex-wrap: wrap;
+}
+
+/* Keep all media controls in a clean row on desktop. */
+.mediaControls {
+  display: grid;
+  grid-template-columns: auto minmax(220px, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.mediaTypeSelector {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.mediaControls > input {
+  min-width: 0;
+}
+
+.mediaControls > button {
+  white-space: nowrap;
+}
+
+.mediaLibrary {
+  margin-top: 14px;
+}
+
+.infoCard {
+  margin-top: 14px;
+}
+
+.sidebar {
+  min-width: 0;
+  position: sticky;
+  top: 96px;
+}
+
+.chatCard {
+  min-height: 430px;
+}
+
+.messages {
+  min-height: 250px;
+}
+
+.user {
+  min-width: 0;
+}
+
+.user > span:nth-child(2) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.hostBadge {
+  flex-shrink: 0;
+}
+
+/* Tablet */
+@media (max-width: 1050px) {
+  .roomLayout {
+    grid-template-columns: minmax(0, 1fr) 300px;
+    padding: 18px;
+    gap: 16px;
+  }
+
+  .mediaControls {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .mediaControls > input {
+    grid-column: 1 / -1;
+  }
+
+  .mediaControls > button {
+    width: 100%;
+  }
+}
+
+/* Mobile */
+@media (max-width: 800px) {
+  .roomLayout {
+    grid-template-columns: 1fr;
+    padding: 12px;
+    gap: 14px;
+  }
+
+  .sidebar {
+    position: static;
+  }
+
+  .topbar {
+    min-height: 64px;
+    padding: 10px 12px;
+  }
+
+  .status {
+    display: none;
+  }
+
+  .chatCard {
+    min-height: 360px;
+  }
+}
+
+@media (max-width: 600px) {
+  .topbar {
+    align-items: flex-start;
+  }
+
+  .topbar > div:first-child {
+    flex-wrap: wrap;
+  }
+
+  .topbar strong {
+    width: 100%;
+  }
+
+  .roomShare {
+    width: 100%;
+  }
+
+  .roomShare .roomCode,
+  .roomShare .copyInviteButton {
+    flex: 1;
+  }
+
+  .topRight {
+    position: absolute;
+    right: 12px;
+    top: 12px;
+  }
+
+  .mediaTypeSelector {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .mediaTypeSelector button {
+    width: 100%;
+  }
+
+  .mediaControls {
+    grid-template-columns: 1fr;
+  }
+
+  .mediaControls > input,
+  .mediaControls > button {
+    grid-column: auto;
+  }
+
+  .reactionBar {
+    gap: 5px;
+    margin: 10px 0 13px;
+  }
+
+  .reactionBar button {
+    width: 40px;
+    height: 38px;
+    font-size: 17px;
+  }
+}
+.dot.offline {
+  background: #ef4444;
+}
+
+.dot.connecting {
+  background: #f59e0b;
+}
+.usernameWithBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.youBadge {
+  padding: 3px 7px;
+  border-radius: 6px;
+  background: rgba(99, 102, 241, 0.15);
+  color: #a5b4fc;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  line-height: 1;
+  white-space: nowrap;
+}
+.emptyUsers {
+  padding: 18px 10px;
+  text-align: center;
+  color: #9ca3af;
+  font-size: 12px;
+}
+
+.emptyUsers small {
+  display: block;
+  margin-top: 6px;
+  color: #64748b;
+  font-size: 11px;
+  line-height: 1.4;
+}
+.mediaLoadingOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 15;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: rgba(5, 7, 12, 0.72);
+  backdrop-filter: blur(4px);
+  color: #d1d5db;
+  font-size: 12px;
+  pointer-events: none;
+}
+
+.mediaSpinner {
+  width: 28px;
+  height: 28px;
+  border: 3px solid rgba(255, 255, 255, 0.15);
+  border-top-color: #818cf8;
+  border-radius: 50%;
+  animation: mediaSpin 0.8s linear infinite;
+}
+
+@keyframes mediaSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.skipControls {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.skipControls button {
+  min-width: 72px;
+}
+
+.playerActions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+.playerActions button {
+  min-width: 110px;
+}
+
+/* =========================================================
+   HOME + MODAL UI
+   Clean, human, product-style polish.
+   ========================================================= */
+
+.homePage {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    radial-gradient(circle at 50% 28%, rgba(79, 70, 229, 0.13), transparent 30%),
+    radial-gradient(circle at 15% 85%, rgba(99, 102, 241, 0.05), transparent 24%),
+    #080a0f;
+}
+
+.homePage::before,
+.homePage::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  border-radius: 50%;
+  filter: blur(1px);
+}
+
+.homePage::before {
+  width: 420px;
+  height: 420px;
+  left: -220px;
+  top: 20%;
+  border: 1px solid rgba(129, 140, 248, 0.07);
+  animation: homeOrbit 12s ease-in-out infinite;
+}
+
+.homePage::after {
+  width: 560px;
+  height: 560px;
+  right: -320px;
+  bottom: -280px;
+  border: 1px solid rgba(129, 140, 248, 0.05);
+  animation: homeOrbit 16s ease-in-out infinite reverse;
+}
+
+.hero {
+  position: relative;
+  z-index: 1;
+  max-width: 760px;
+  padding: 42px 20px;
+  animation: homeEnter 0.7s cubic-bezier(.2,.8,.2,1) both;
+}
+
+.homeTop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 34px;
+}
+
+.homeTop .logo {
+  width: 48px;
+  height: 48px;
+  margin: 0;
+  border-radius: 14px;
+  background: linear-gradient(145deg, #252b3a, #151a24);
+  border: 1px solid #3a4357;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.25);
+  animation: logoFloat 3s ease-in-out infinite;
+}
+
+.livePill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 11px;
+  border: 1px solid #272f40;
+  border-radius: 999px;
+  background: rgba(17, 21, 30, 0.8);
+  color: #9ca3af;
+  font-size: 11px;
+  letter-spacing: .3px;
+}
+
+.liveDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.08);
+  animation: livePulse 1.8s ease-in-out infinite;
+}
+
+.eyebrow {
+  margin: 0 0 16px !important;
+  color: #818cf8 !important;
+  font-size: 10px !important;
+  font-weight: 700;
+  letter-spacing: 2.4px;
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(44px, 7vw, 76px);
+  line-height: .98;
+  letter-spacing: -3px;
+  color: #f8fafc;
+  animation: titleReveal .75s .08s cubic-bezier(.2,.8,.2,1) both;
+}
+
+.heroAccent {
+  display: inline-block;
+  color: #a5b4fc;
+  background: linear-gradient(90deg, #c4b5fd, #818cf8, #c4b5fd);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: accentShimmer 5s linear infinite;
+}
+
+.heroText {
+  max-width: 590px;
+  margin: 22px auto 20px !important;
+  color: #8993a5 !important;
+  font-size: 15px !important;
+  line-height: 1.65;
+}
+
+.wordRail {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 11px;
+  margin: 18px 0 28px;
+  color: #5f6879;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+}
+
+.wordRail span {
+  animation: wordLift 2.8s ease-in-out infinite;
+}
+
+.wordRail span:nth-of-type(2) { animation-delay: .15s; }
+.wordRail span:nth-of-type(3) { animation-delay: .3s; }
+.wordRail span:nth-of-type(4) { animation-delay: .45s; }
+
+.wordRail i {
+  color: #3b4353;
+  font-style: normal;
+}
+
+.actions {
+  gap: 10px;
+  align-items: center;
+}
+
+.homePrimary,
+.homeSecondary {
+  min-height: 48px;
+  border-radius: 12px;
+  padding: 12px 18px;
+}
+
+.homePrimary {
+  min-width: 166px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  box-shadow: 0 10px 28px rgba(79, 70, 229, 0.2);
+}
+
+.homePrimary b {
+  font-size: 18px;
+  font-weight: 400;
+  transition: transform .2s ease;
+}
+
+.homePrimary:hover b {
+  transform: translateX(4px);
+}
+
+.homeSecondary {
+  min-width: 166px;
+}
+
+.homeFeatures {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin: 44px auto 0;
+  max-width: 620px;
+  text-align: left;
+}
+
+.homeFeatures > div {
+  padding: 15px;
+  border: 1px solid #1f2633;
+  border-radius: 12px;
+  background: rgba(13, 17, 24, 0.7);
+  transition: transform .2s ease, border-color .2s ease, background .2s ease;
+}
+
+.homeFeatures > div:hover {
+  transform: translateY(-3px);
+  border-color: #343d50;
+  background: #11151e;
+}
+
+.homeFeatures span {
+  display: block;
+  margin-bottom: 9px;
+  color: #555f71;
+  font-family: monospace;
+  font-size: 9px;
+}
+
+.homeFeatures strong {
+  display: block;
+  color: #e5e7eb;
+  font-size: 12px;
+}
+
+.homeFeatures small {
+  display: block;
+  margin-top: 4px;
+  color: #667085;
+  font-size: 10px;
+  line-height: 1.4;
+}
+
+.connection {
+  margin-top: 22px;
+}
+
+/* Modal polish */
+
+.modalOverlay {
+  background: rgba(3, 5, 9, .78);
+  backdrop-filter: blur(8px);
+  animation: overlayIn .2s ease both;
+}
+
+.modal {
+  max-width: 460px;
+  padding: 30px;
+  border-radius: 18px;
+  background:
+    linear-gradient(145deg, rgba(20, 25, 35, .98), rgba(13, 17, 24, .98));
+  border: 1px solid #2b3445;
+  box-shadow:
+    0 30px 80px rgba(0,0,0,.5),
+    0 0 0 1px rgba(255,255,255,.02);
+  animation: modalIn .35s cubic-bezier(.2,.8,.2,1) both;
+}
+
+.modalKicker {
+  margin-bottom: 9px;
+  color: #6366f1;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.modal h2 {
+  margin: 0 0 22px;
+  font-size: 28px;
+  letter-spacing: -.7px;
+}
+
+.modal label {
+  margin: 18px 0 7px;
+  color: #b8c0ce;
+}
+
+.modal input {
+  min-height: 52px;
+  padding: 13px 14px;
+  border-radius: 11px;
+  border-color: #293243;
+  background: #0a0e15;
+  transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+
+.modal input:hover {
+  border-color: #394459;
+}
+
+.modal input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 4px rgba(99,102,241,.09);
+  transform: translateY(-1px);
+}
+
+.modalActions {
+  margin-top: 24px;
+}
+
+.modalActions button {
+  min-height: 46px;
+  padding-inline: 20px;
+  border-radius: 11px;
+}
+
+.codeInputWrap {
+  position: relative;
+}
+
+.roomCodeInput {
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 20px !important;
+  font-weight: 700;
+  padding-right: 120px !important;
+}
+
+.codeInputWrap:focus-within::after {
+  content: "";
+  position: absolute;
+  left: 14px;
+  bottom: 0;
+  width: 46px;
+  height: 2px;
+  border-radius: 999px;
+  background: #818cf8;
+  animation: codeLine .35s ease both;
+}
+
+.codeHint {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #4f5a6d;
+  font-family: ui-monospace, monospace;
+  font-size: 9px;
+  pointer-events: none;
+  transition: color .2s ease;
+}
+
+.codeInputWrap:focus-within .codeHint {
+  color: #818cf8;
+}
+
+@keyframes homeEnter {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes titleReveal {
+  from { opacity: 0; transform: translateY(12px); letter-spacing: -1px; }
+  to { opacity: 1; transform: translateY(0); letter-spacing: -3px; }
+}
+
+@keyframes accentShimmer {
+  to { background-position: 200% center; }
+}
+
+@keyframes wordLift {
+  0%, 100% { opacity: .45; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(-3px); }
+}
+
+@keyframes logoFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+@keyframes livePulse {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(34,197,94,.06); }
+  50% { box-shadow: 0 0 0 6px rgba(34,197,94,.03); }
+}
+
+@keyframes overlayIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(14px) scale(.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes codeLine {
+  from { width: 0; opacity: 0; }
+  to { width: 46px; opacity: 1; }
+}
+
+@keyframes homeOrbit {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(25px, -18px) rotate(12deg); }
+}
+
+/* Mobile homepage */
+@media (max-width: 600px) {
+  .hero {
+    padding: 24px 8px;
+  }
+
+  .homeTop {
+    margin-bottom: 28px;
+  }
+
+  .eyebrow {
+    font-size: 8px !important;
+    letter-spacing: 1.7px;
+  }
+
+  .hero h1 {
+    font-size: clamp(42px, 12vw, 58px);
+    letter-spacing: -2.2px;
+  }
+
+  .heroAccent {
+    margin-top: 3px;
+  }
+
+  .heroText {
+    font-size: 14px !important;
+    padding-inline: 12px;
+  }
+
+  .wordRail {
+    gap: 7px;
+    margin: 17px 0 25px;
+    font-size: 8px;
+  }
+
+  .actions {
+    width: 100%;
+  }
+
+  .homePrimary,
+  .homeSecondary {
+    width: 100%;
+  }
+
+  .homeFeatures {
+    grid-template-columns: 1fr;
+    margin-top: 28px;
+    max-width: 360px;
+  }
+
+  .homeFeatures > div {
+    display: grid;
+    grid-template-columns: 32px 1fr;
+    column-gap: 9px;
+    align-items: center;
+  }
+
+  .homeFeatures span {
+    grid-row: 1 / 3;
+    margin: 0;
+  }
+
+  .homeFeatures small {
+    margin-top: 2px;
+  }
+
+  .modal {
+    padding: 24px 18px;
+    border-radius: 16px;
+  }
+
+  .modal h2 {
+    font-size: 25px;
+  }
+
+  .roomCodeInput {
+    letter-spacing: 3px;
+    font-size: 18px !important;
+    padding-right: 95px !important;
+  }
+
+  .codeHint {
+    font-size: 8px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .homePage *,
+  .homePage::before,
+  .homePage::after,
+  .modalOverlay,
+  .modal {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+
+/* =========================================================
+   SYNCROOM ROOM LAYOUT FIX
+   Desktop stays desktop.
+   Mobile gets its own compact layout.
+   ========================================================= */
+
+html,
+body,
+#root {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.roomPage {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* ---------- Desktop: balanced margins ---------- */
+
+.roomLayout {
+  width: min(100%, 1480px);
+  max-width: 1480px;
+  margin-inline: auto;
+  padding: 24px 28px 32px;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: 24px;
+}
+
+.videoSection,
+.sidebar {
+  min-width: 0;
+}
+
+.sidebar {
+  width: 100%;
+}
+
+.card,
+.infoCard,
+.mediaLibrary {
+  width: 100%;
+  max-width: 100%;
+}
+
+.chatCard {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.chatInput {
+  min-width: 0;
+}
+
+.chatInput input {
+  min-width: 0;
+}
+
+.mediaControls {
+  min-width: 0;
+}
+
+.mediaControls > input {
+  min-width: 0;
+  width: 100%;
+}
+
+.mediaControls > button {
+  min-width: 0;
+}
+
+/* ---------- Tablet ---------- */
+
+@media (max-width: 1050px) and (min-width: 801px) {
+  .roomLayout {
+    width: 100%;
+    max-width: 100%;
+    padding: 18px 20px 26px;
+    grid-template-columns: minmax(0, 1fr) 310px;
+    gap: 18px;
+  }
+
+  .topbar {
+    padding-inline: 20px;
+  }
+}
+
+/* =========================================================
+   MOBILE ROOM
+   ========================================================= */
+
+@media (max-width: 800px) {
+  html,
+  body,
+  #root {
+    width: 100%;
+    min-width: 0;
+    overflow-x: hidden;
+  }
+
+  .roomPage {
+    width: 100%;
+    min-width: 0;
+    overflow-x: hidden;
+  }
+
+  .topbar {
+    width: 100%;
+    min-width: 0;
+    min-height: 64px;
+    height: auto;
+    padding: 10px 12px;
+    gap: 10px;
+    overflow: hidden;
+  }
+
+  .topbar > div:first-child {
+    min-width: 0;
+    max-width: calc(100% - 110px);
+  }
+
+  .topbar strong {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .roomShare {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .roomCode,
+  .copyInviteButton {
+    min-width: 0;
+    white-space: nowrap;
+  }
+
+  .topRight {
+    flex-shrink: 0;
+  }
+
+  .topRight .secondary {
+    white-space: nowrap;
+  }
+
+  .roomLayout {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 10px 12px 24px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+    overflow: visible;
+  }
+
+  .videoSection {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .videoBox {
+    width: 100%;
+    max-width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 12px;
+  }
+
+  .videoBox video,
+  .youtubePlayer,
+  .youtubeIframe {
+    max-width: 100%;
+  }
+
+  /* Fullscreen button stays attached to the player instead of
+     creating a strange right-side overflow. */
+  .playerActions {
+    width: 100%;
+    justify-content: flex-end;
+    margin-top: 8px;
+  }
+
+  .playerActions button {
+    min-width: 0;
+  }
+
+  /* Reactions stay centered and never create horizontal overflow. */
+  .reactionBar {
+    width: 100%;
+    max-width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 10px 0 14px;
+  }
+
+  .reactionBar button {
+    flex: 0 0 40px;
+    width: 40px;
+    height: 38px;
+  }
+
+  /* Skip buttons form a neat mobile row. */
+  .skipControls {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .skipControls button {
+    width: 100%;
+    min-width: 0;
+  }
+
+  /* Video / Music / YouTube become one clean 3-column row. */
+  .mediaControls {
+    width: 100%;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 9px;
+    margin-top: 8px;
+  }
+
+  .mediaTypeSelector {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 7px;
+  }
+
+  .mediaTypeSelector button {
+    width: 100%;
+    min-width: 0;
+    padding-inline: 8px;
+    white-space: nowrap;
+  }
+
+  .mediaControls > input,
+  .mediaControls > button {
+    width: 100%;
+    min-width: 0;
+    grid-column: auto;
+  }
+
+  /* Prevent long URL placeholders from pushing the page wider. */
+  .mediaControls input {
+    text-overflow: ellipsis;
+  }
+
+  /* Chat is intentionally shown before People on mobile. */
+  .sidebar {
+    width: 100%;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: static;
+  }
+
+  .sidebar .chatCard {
+    order: -1;
+    width: 100%;
+    min-width: 0;
+    min-height: 300px;
+    height: 300px;
+  }
+
+  .sidebar .chatCard .messages {
+    min-height: 0;
+    flex: 1;
+    overflow-y: auto;
+  }
+
+  .sidebar .chatInput {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .sidebar .chatInput input {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .sidebar .card {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .users {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .user {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .usernameWithBadge {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .infoCard {
+    width: 100%;
+    min-width: 0;
+    margin-top: 12px;
+  }
+
+  .mediaLibrary {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+/* Smaller phones */
+@media (max-width: 600px) {
+  .topbar {
+    padding: 9px 10px;
+  }
+
+  .topbar > div:first-child {
+    max-width: calc(100% - 94px);
+    gap: 7px;
+  }
+
+  .topbar strong {
+    font-size: 16px;
+  }
+
+  .roomShare {
+    gap: 5px;
+  }
+
+  .roomCode,
+  .copyInviteButton {
+    padding: 6px 8px;
+    font-size: 11px;
+  }
+
+  .topRight {
+    right: 10px;
+    top: 10px;
+  }
+
+  .topRight .secondary {
+    padding: 9px 11px;
+    font-size: 13px;
+  }
+
+  .roomLayout {
+    padding: 8px 10px 22px;
+    gap: 10px;
+  }
+
+  .videoBox {
+    border-radius: 10px;
+  }
+
+  .playerActions button {
+    width: auto;
+    padding: 10px 14px;
+  }
+
+  .skipControls button {
+    min-height: 46px;
+    padding-inline: 8px;
+  }
+
+  .mediaTypeSelector {
+    gap: 6px;
+  }
+
+  .mediaTypeSelector button {
+    min-height: 44px;
+    padding: 8px 5px;
+    font-size: 13px;
+  }
+
+  .mediaControls > input {
+    min-height: 46px;
+  }
+
+  .sidebar .chatCard {
+    min-height: 280px;
+    height: 280px;
+  }
+
+  .cardHeader {
+    padding: 12px 13px;
+  }
+
+  .messages {
+    padding: 11px;
+  }
+
+  .chatInput {
+    padding: 8px;
+  }
+
+  .chatInput .primary {
+    padding-inline: 14px;
+  }
+}
+
+/* Very small phones */
+@media (max-width: 380px) {
+  .topbar strong {
+    font-size: 15px;
+  }
+
+  .roomCode,
+  .copyInviteButton {
+    font-size: 10px;
+  }
+
+  .mediaTypeSelector button {
+    font-size: 12px;
+  }
+
+  .reactionBar button {
+    flex-basis: 38px;
+    width: 38px;
+    height: 36px;
+  }
+}
+
+
+/* =========================
+   VOICE CHAT
+   ========================= */
+.voiceCard {
+  overflow: hidden;
+}
+
+.voiceStatus {
+  margin-left: auto;
+  font-size: 10px;
+  letter-spacing: .08em;
+  color: #9ca3af;
+}
+
+.voiceStatus.active {
+  color: #86efac;
+}
+
+.voiceBody {
+  padding: 12px;
+}
+
+.voicePeople {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.voicePerson {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  border-radius: 10px;
+  background: rgba(255,255,255,.035);
+}
+
+.voiceAvatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  flex: 0 0 32px;
+  background: rgba(99,102,241,.2);
+  color: #c7d2fe;
+  font-weight: 700;
+}
+
+.voicePerson > span:nth-child(2) {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.voicePerson strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+}
+
+.voicePerson small,
+.voiceWaiting {
+  color: #9ca3af;
+  font-size: 10px;
+  margin-top: 2px;
+}
+
+.voiceMic {
+  margin-left: auto;
+  font-size: 14px;
+}
+
+.voiceHint {
+  margin: 0 0 12px;
+  color: #9ca3af;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.voiceActions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.voiceActions button,
+.voiceJoinButton {
+  width: 100%;
+}
+.voiceActions .voiceJoinButton {
+  grid-column: 1 / -1;
+  width: auto;
+  justify-self: center;
+}
+
+.voiceActions .danger {
+  border: 1px solid rgba(248,113,113,.3);
+  background: rgba(127,29,29,.22);
+  color: #fca5a5;
+}
+
+@media (max-width: 420px) {
+  .voiceActions {
+    grid-template-columns: 1fr;
+  }
+}
+/* =========================================================
+   SYNCROOM NEW FEATURES
+   ========================================================= */
+
+.watchProgress {
+  width: 100%;
+  margin: 10px 0 6px;
+}
+
+.watchProgressTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 6px;
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+.watchProgressTrack {
+  width: 100%;
+  height: 5px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.watchProgressFill {
+  height: 100%;
+  width: 0;
+  border-radius: inherit;
+  background: currentColor;
+  transition: width 0.25s linear;
+}
+
+.roomTimer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  margin: 5px 0 10px;
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.roomTimer strong {
+  font-variant-numeric: tabular-nums;
+}
+
+.watchingSummary {
+  margin-bottom: 8px;
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.typingIndicator {
+  min-height: 18px;
+  margin: 5px 2px 6px;
+  font-size: 11px;
+  font-style: italic;
+  opacity: 0.65;
+}
+
+.userModerationActions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+}
+
+.userModerationActions button {
+  width: 28px;
+  min-width: 28px;
+  height: 28px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 7px;
+  font-size: 12px;
+}
+
+.userModerationActions .danger {
+  color: #ff6b6b;
+}
+
+/* =========================================
+   SYNCROOM HERO WATCHING ANIMATION
+========================================= */
+
+.app {
+  position: relative;
+}
+
+.heroScene {
+  position: absolute;
+  right: 35px;
+  top: 52%;
+  width: 400px;
+  height: 330px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.62;
+}
+
+.heroSceneSvg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* Soft ambient glow */
+.ambientCircle {
+  fill: rgba(255, 255, 255, 0.015);
+  stroke: none;
+}
+.sceneGlow {
+  position: absolute;
+  width: 250px;
+  height: 250px;
+  right: 100px;
+  top: 80px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.025);
+  filter: blur(80px);
+  animation: scenePulse 4s ease-in-out infinite;
+}
+
+@keyframes scenePulse {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(0.9);
+  }
+
+  50% {
+    opacity: 0.8;
+    transform: scale(1.08);
+  }
+}
+
+/* White line art */
+
+.line {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.72);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+
+  filter:
+    drop-shadow(0 0 5px rgba(255, 255, 255, 0.45))
+    drop-shadow(0 0 14px rgba(255, 255, 255, 0.12));
+}
+
+/* TV */
+
+.tvGlow {
+  fill: rgba(255, 255, 255, 0.035);
+  stroke: none;
+  filter: blur(18px);
+  animation: tvGlowPulse 2.8s ease-in-out infinite;
+}
+
+.tvScreen {
+  fill: rgba(255, 255, 255, 0.025);
+  animation: screenFlicker 3s ease-in-out infinite;
+}
+
+@keyframes tvGlowPulse {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+
+  50% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes screenFlicker {
+  0%,
+  100% {
+    fill: rgba(255, 255, 255, 0.025);
+  }
+
+  45% {
+    fill: rgba(255, 255, 255, 0.055);
+  }
+
+  50% {
+    fill: rgba(255, 255, 255, 0.025);
+  }
+
+  70% {
+    fill: rgba(255, 255, 255, 0.045);
+  }
+}
+
+/* People glow */
+
+.personGlow {
+  animation: peopleGlow 4s ease-in-out infinite;
+}
+
+@keyframes peopleGlow {
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Sofa */
+
+.sofa {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.42);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+
+  filter: drop-shadow(0 0 7px rgba(255, 255, 255, 0.15));
+}
+
+/* Floating particles */
+
+.particle {
+  fill: white;
+  opacity: 0;
+  filter: drop-shadow(0 0 5px white);
+}
+
+.p1 {
+  animation: particleFloat 4s 0s infinite;
+}
+
+.p2 {
+  animation: particleFloat 4s 1s infinite;
+}
+
+.p3 {
+  animation: particleFloat 4s 2s infinite;
+}
+
+.p4 {
+  animation: particleFloat 4s 2.7s infinite;
+}
+
+.p5 {
+  animation: particleFloat 4s 1.5s infinite;
+}
+
+@keyframes particleFloat {
+  0% {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+
+  30% {
+    opacity: 0.7;
+  }
+
+  70% {
+    opacity: 0.35;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-25px);
+  }
+}
+
+/* Keep the illustration away on smaller screens */
+
+@media (max-width: 900px) {
+  .heroScene {
+    right: -120px;
+    top: 50%;
+    width: 360px;
+    height: 300px;
+    opacity: 0.3;
+  }
+}
+
+@media (max-width: 600px) {
+  .heroScene {
+    right: -190px;
+    top: 48%;
+    width: 330px;
+    height: 275px;
+    opacity: 0.18;
+  }
+}
