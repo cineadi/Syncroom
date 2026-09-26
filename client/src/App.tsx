@@ -44,11 +44,7 @@ const generateRoomCode = () => {
 };
 
 function App() {
-  const [page, setPage] = useState<"home" | "room">(() => {
-  const savedRoom = localStorage.getItem("syncroom_room");
-
-  return savedRoom ? "room" : "home";
-});
+  const [page, setPage] = useState<"home" | "room">("home");
   const [syncEnabled, setSyncEnabled] = useState(false);
   const [username, setUsername] = useState(() => {
   return localStorage.getItem("syncroom_username") || "";
@@ -125,6 +121,9 @@ const peerConnectionsRef = useRef<
 
 const remoteAudioRef = useRef<
   Map<string, HTMLAudioElement>
+>(new Map());
+const pendingIceCandidatesRef = useRef<
+  Map<string, RTCIceCandidateInit[]>
 >(new Map());
 
 const mediaWasPlayingBeforeInterruptionRef = useRef(false);
@@ -629,24 +628,40 @@ useEffect(() => {
   };
 
   const handleIceCandidate = async ({
-    fromId,
-    candidate,
-  }: {
-    fromId: string;
-    candidate: RTCIceCandidateInit;
-  }) => {
-    const peer = peerConnectionsRef.current.get(fromId);
-    if (!peer) return;
+  fromId,
+  candidate,
+}: {
+  fromId: string;
+  candidate: RTCIceCandidateInit;
+}) => {
+  const peer = peerConnectionsRef.current.get(fromId);
 
-    try {
-      await peer.addIceCandidate(
-        new RTCIceCandidate(candidate)
-      );
-    } catch (error) {
-      console.error("Failed to add ICE candidate:", error);
-    }
-  };
+  if (!peer) {
+    const pending = pendingIceCandidatesRef.current.get(fromId) || [];
+    pending.push(candidate);
+    pendingIceCandidatesRef.current.set(fromId, pending);
+    return;
+  }
 
+  try {
+    await peer.addIceCandidate(new RTCIceCandidate(candidate));
+  } catch (error) {
+
+    const pendingCandidates =
+  pendingIceCandidatesRef.current.get(fromId) || [];
+
+for (const candidate of pendingCandidates) {
+  try {
+    await peer.addIceCandidate(new RTCIceCandidate(candidate));
+  } catch (error) {
+    console.error("Pending ICE candidate error:", error);
+  }
+}
+
+pendingIceCandidatesRef.current.delete(fromId);
+    console.error("ICE candidate error:", error);
+  }
+};
   const handleVoiceParticipants = ({
     participants,
   }: {
@@ -791,20 +806,8 @@ useEffect(() => {
     };
 
     const onConnect = () => {
-      setStatus("Connected");
-
-      const savedRoom = localStorage.getItem("syncroom_room");
-      const savedUsername = localStorage.getItem("syncroom_username");
-
-      if (savedRoom && savedUsername) {
-        console.log("AUTO REJOIN:", savedRoom);
-
-        socket.emit("room:join", {
-          roomId: savedRoom,
-          username: savedUsername,
-        });
-      }
-    };
+  setStatus("Connected");
+};
 
     const onDisconnect = () => {
       console.log("Disconnected");
@@ -812,17 +815,23 @@ useEffect(() => {
     };
 
     const onRoomCreated = ({ room }: { room: Room }) => {
-      setRoom(room);
-      setUsers(room.users);
-      setPage("room");
-      setShowCreate(false);
-      setError("");
+  localStorage.setItem("syncroom_room", room.id);
+  localStorage.setItem("syncroom_username", username.trim());
 
-      console.log("Room created:", room.id);
-    };
+  setRoom(room);
+  setUsers(room.users);
+  setPage("room");
+  setShowCreate(false);
+  setError("");
+
+  console.log("Room created:", room.id);
+};
 
     const onRoomState = ({ room }: { room: Room }) => {
-      setRoom(room);
+  localStorage.setItem("syncroom_room", room.id);
+  localStorage.setItem("syncroom_username", username.trim());
+
+  setRoom(room);
       setUsers(room.users);
       setMediaLibrary(
           (room.mediaLibrary || []).map((media) => ({
@@ -1292,11 +1301,6 @@ const onHostChanged = ({
     }
 
     const id = generateRoomCode();
-    localStorage.setItem("syncroom_room", id);
-    localStorage.setItem(
-      "syncroom_username",
-      username.trim()
-    );
 
     socket.emit("room:create", {
       roomId: id,
@@ -1321,15 +1325,7 @@ const onHostChanged = ({
       setError("Enter a room code.");
       return;
     }
-      localStorage.setItem(
-        "syncroom_room",
-        roomCode.trim().toUpperCase()
-      );
 
-      localStorage.setItem(
-        "syncroom_username",
-         username.trim()
-        );
     socket.emit("room:join", {
       roomId: roomCode.trim().toUpperCase(),
       username: username.trim(),
@@ -1965,6 +1961,10 @@ formData.append("mediaType", selectedMediaType);
   ) : room?.mediaType === "audio" ? (
     <audio
     onLoadedData={() => setMediaLoading(false)}
+onError={() => {
+  setMediaLoading(false);
+  setError("Unable to load this media.");
+}}
       ref={audioRef}
       src={room.mediaUrl}
       controls={isHost}
@@ -1975,6 +1975,10 @@ formData.append("mediaType", selectedMediaType);
   ) : (
     <video
     onLoadedData={() => setMediaLoading(false)}
+onError={() => {
+  setMediaLoading(false);
+  setError("Unable to load this media.");
+}}
       ref={videoRef}
       src={room?.mediaUrl}
       controls={isHost}

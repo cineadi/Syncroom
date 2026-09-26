@@ -334,9 +334,27 @@ io.on("connection", (socket) => {
 
 socket.on(
   "typing",
-  ({ roomId, username, isTyping }: { roomId: string; username: string; isTyping: boolean }) => {
-    if (!rooms.has(roomId)) return;
-    socket.to(roomId).emit("typing", { username, isTyping });
+  ({
+    roomId,
+    isTyping,
+  }: {
+    roomId: string;
+    isTyping: boolean;
+  }) => {
+    const room = rooms.get(roomId);
+
+    if (!room) return;
+
+    const user = room.users.find(
+      (user) => user.id === socket.id
+    );
+
+    if (!user) return;
+
+    socket.to(roomId).emit("typing", {
+      username: user.username,
+      isTyping,
+    });
   }
 );
 
@@ -406,15 +424,21 @@ socket.on(
     reaction: string;
     username: string;
   }) => {
-    console.log("SERVER GOT REACTION:", roomId, reaction, username);
+    const room = rooms.get(roomId);
+
+    if (!room) return;
+
+    const isMember = room.users.some(
+      (user) => user.id === socket.id
+    );
+
+    if (!isMember) return;
 
     io.to(roomId).emit("reaction:receive", {
       id: `${Date.now()}-${Math.random()}`,
       reaction,
       username,
     });
-
-    console.log("SERVER SENT REACTION TO ROOM:", roomId);
   }
 );
   // =========================
@@ -603,26 +627,33 @@ socket.on(
   // =========================
 
   socket.on(
-    "chat:message",
-    ({
-      roomId,
-      message,
-    }: {
-      roomId: string;
-      message: {
-        id: string;
-        sender: string;
-        text: string;
-        timestamp: number;
-        isHost?: boolean;
-      };
-    }) => {
+  "chat:message",
+  ({
+    roomId,
+    message,
+  }: {
+    roomId: string;
+    message: {
+      id: string;
+      sender: string;
+      text: string;
+      timestamp: number;
+      isHost?: boolean;
+    };
+  }) => {
+    const room = rooms.get(roomId);
 
-      if (!rooms.has(roomId)) return;
+    if (!room) return;
 
-      io.to(roomId).emit("chat:message", message);
-    }
-  );
+    const isMember = room.users.some(
+      (user) => user.id === socket.id
+    );
+
+    if (!isMember) return;
+
+    io.to(roomId).emit("chat:message", message);
+  }
+);
 
 
   // =========================
